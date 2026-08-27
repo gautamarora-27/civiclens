@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import DateTime, Float, ForeignKey, String
+from sqlalchemy import CheckConstraint, DateTime, Float, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column
 from geoalchemy2 import Geography
 
@@ -9,6 +9,25 @@ from backend.app.database.session import Base
 
 class Detection(Base):
     __tablename__ = "detections"
+
+    __table_args__ = (
+        CheckConstraint(
+            "latitude >= -90 AND latitude <= 90",
+            name="ck_detections_latitude_range",
+        ),
+        CheckConstraint(
+            "longitude >= -180 AND longitude <= 180",
+            name="ck_detections_longitude_range",
+        ),
+        CheckConstraint(
+            "confidence >= 0 AND confidence <= 1",
+            name="ck_detections_confidence_range",
+        ),
+        CheckConstraint(
+            "severity IS NULL OR (severity >= 0 AND severity <= 10)",
+            name="ck_detections_severity_range",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(
         primary_key=True,

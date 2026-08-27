@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, Float, String
+from sqlalchemy import CheckConstraint, DateTime, Float, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from backend.app.database.session import Base
@@ -8,6 +8,17 @@ from geoalchemy2 import Geography
 
 class Vehicle(Base):
     __tablename__ = "vehicles"
+
+    __table_args__ = (
+        CheckConstraint(
+            "latitude IS NULL OR (latitude >= -90 AND latitude <= 90)",
+            name="ck_vehicles_latitude_range",
+        ),
+        CheckConstraint(
+            "longitude IS NULL OR (longitude >= -180 AND longitude <= 180)",
+            name="ck_vehicles_longitude_range",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(
         primary_key=True,
