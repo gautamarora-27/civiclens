@@ -1,7 +1,9 @@
+from pathlib import Path
+
 import cv2
 from ultralytics import YOLO
 
-MODEL = r"D:\civiclens\runs\civiclens_hardneg_v1\weights\best.pt"
+MODEL = str(Path(__file__).resolve().parents[2] / "model" / "best.pt")
 
 model = YOLO(MODEL)
 cap = cv2.VideoCapture(1)
@@ -21,7 +23,7 @@ while True:
     results = model.predict(
         frame,
         imgsz=640,
-        conf=0.40,
+        conf=0.45,
         verbose=False,
     )
 

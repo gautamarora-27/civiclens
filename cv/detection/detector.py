@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 from ultralytics import YOLO
 
@@ -29,7 +30,7 @@ class CivicLensDetector:
 
     def __init__(
         self,
-        model_path: str = r"D:\civiclens\runs\civiclens_hardneg_v1\weights\best.pt",
+        model_path: str = str(Path(__file__).resolve().parents[2] / "model" / "best.pt"),
         confidence: float = 0.40,
     ):
         self.model = YOLO(model_path)

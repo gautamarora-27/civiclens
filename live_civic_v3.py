@@ -1,7 +1,9 @@
+from pathlib import Path
+
 import cv2
 from ultralytics import YOLO
 
-MODEL = r"D:\civiclens\runs\civiclens_water_v3\weights\best.pt"
+MODEL = str(Path(__file__).resolve().parent / "model" / "best.pt")
 
 model = YOLO(MODEL)
 
