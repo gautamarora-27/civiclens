@@ -1,0 +1,11 @@
+ultralytics==8.4.143
+opencv-python==5.0.0.93
+torch==2.14.0
+torchvision==0.29.0
+numpy==2.5.3
+scipy==1.18.1
+Pillow==12.3.0
+matplotlib==3.11.1
+supervision==0.30.2
+inference-sdk==1.5.2
+PyYAML==6.0.3
